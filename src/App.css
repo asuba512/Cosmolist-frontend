@@ -1,0 +1,105 @@
+
+main{
+  margin: 3.5rem 1.5rem;
+}
+
+.flex-divider{
+  flex-grow: 2;
+}
+
+.btn{
+  background-color: #252525;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-family: inherit;
+  padding: 0.5rem 0.8rem;
+  margin: 0 0.5rem;
+  height: 2rem;
+}
+
+.btn:hover,
+.btn:active{
+  background-color: #000000;
+  border-color: #000000;
+  color: skyblue;
+  cursor: pointer;
+}
+
+.btn svg{
+  padding-right: 0.5rem;
+}
+
+.form-control{
+  width: 100%;
+  flex-shrink: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control-horizontal{
+  align-content: center;
+  flex-direction: row;
+}
+
+.form-control label{
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+input{
+  font-family: inherit;
+  font-size: 1rem;
+  height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 2px;
+}
+
+input.invalid-input {
+  border: 2px solid red;
+}
+
+.form-control-select .form-control-select__control,
+.form-control-select .form-control-select__control:hover{
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 2px;
+  height: 2.4rem;
+}
+
+.form-control-select .form-control-select__value-container{
+  padding: 0 0.5rem;
+  height: 100%;
+}
+
+.form-control-select .form-control-select__indicators {
+  height: 100%;
+}
+
+.form-control-select .form-control-select__option--is-selected,
+.form-control-select .form-control-select__option--is-selected:hover,
+.form-control-select .form-control-select__option--is-selected.form-control-select__option--is-focused{
+  background: #BBB;
+  color: black;
+}
+
+.form-control-select .form-control-select__option--is-focused{
+  background: #DDD;
+  color: black;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666; 
+}

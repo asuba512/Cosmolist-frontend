@@ -1,0 +1,21 @@
+.searchbox__container{
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0,0,0, 0.5);
+    border-radius: 2px;
+    margin: 0 0.5rem;
+}
+
+.searchbox__input{
+    background: white;
+    border: none;
+    font-size: 1rem;
+    height: 1.5rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.searchbox__icon{
+    padding: 0.3rem;
+    padding-right: 0;
+    color: rgba(0,0,0, 0.5);
+}
