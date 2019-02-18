@@ -211,6 +211,7 @@ class SuperpowerManager extends Component {
                 {this.state.selectedSuperpower && (<Modal
                     headerText='New name'
                     modalSize='big'
+                    hasSaveIcon
                     onCancel={this.cancelHandler}
                     confirmText='Save' onConfirm={this.confirmRenameSuperpower}>
                     <input type='text' defaultValue={this.state.selectedSuperpower.name} className={!this.state.isSuperpowerNameValid ? 'invalid-input' : ''} ref={this.newNameInput} />
