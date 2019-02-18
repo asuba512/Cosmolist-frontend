@@ -18,7 +18,7 @@ const APIRequest = (context, query, successHandler) => {
             context.endLoading();
         })
         .catch(err => {
-            console.log(err);
+            context.errorHandler(err);
             context.endLoading();
         });
 };

@@ -20,11 +20,12 @@ class Modal extends Component {
     }
     render() {
         return (
-            <React.Fragment>
+            <div className={this.props.isError && 'error'}>
                 <div className='backdrop' onClick={this.props.onCancel}></div>
                 <div className={'modal ' + this.props.modalSize} ref={this.modal}>
                     <div className='modal__header'>
                         {this.props.headerText}
+                        <button className='modal__header-close-btn' onClick={this.props.onCancel} ><FontAwesomeIcon icon='times' /></button>
                     </div>
                     <div className='modal__body'>
                         {this.props.children}
@@ -41,7 +42,7 @@ class Modal extends Component {
                         </div>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 };

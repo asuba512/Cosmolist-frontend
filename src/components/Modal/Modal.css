@@ -33,6 +33,15 @@
     padding: 1rem;
     background: #353535;
     color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal__header-close-btn{
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
 }
 
 .modal__body{
@@ -52,4 +61,8 @@
 
 .modal__buttons-right{
     margin-left: auto;
+}
+
+.error div{
+    z-index: 10000;
 }

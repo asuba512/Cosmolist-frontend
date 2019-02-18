@@ -11,12 +11,15 @@ import Spinner from './components/Spinner/Spinner'
 import Context from './Context';
 
 import './App.css';
+import Modal from './components/Modal/Modal';
 
 library.add(faSearch, faSync, faCog, faPlus, faUserEdit, faUserSlash, faSave, faUserAstronaut, faTimes, faEdit);
 
 class App extends Component {
   state = {
-    loading: false
+    loading: false,
+    error: false,
+    errorText: ''
   }
 
   beginLoading = () => {
@@ -27,6 +30,10 @@ class App extends Component {
     this.setState({ loading: false });
   }
 
+  errorHandler = (errorText) => {
+    this.setState({ error: true, errorText: errorText });
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -35,11 +42,24 @@ class App extends Component {
             value={{
               loading: this.state.loading,
               beginLoading: this.beginLoading,
-              endLoading: this.endLoading
+              endLoading: this.endLoading,
+              errorHandler: this.errorHandler
             }}>
 
             <Navbar />
             {this.state.loading && <Spinner />}
+            {this.state.error && (
+              <Modal
+                headerText='Error occured'
+                modalSize='huge'
+                isError
+                onCancel={() => { window.location.reload() }} cancelText='Reload'>
+                Please, try to reload the page.
+                <pre>
+                  {this.state.errorText.toString()}
+                </pre>
+              </Modal>
+            )}
             <main className='main'>
               <Switch>
                 <Redirect from="/" to="/cosmonauts" exact />

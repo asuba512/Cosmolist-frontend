@@ -5,8 +5,9 @@ import './CosmonautsListItem.css';
 
 const cosmonautsList = props => (
     <li className='cosmonauts__list-item'>
-        <div>
-            <img src='http://bestnycacupuncturist.com/wp-content/uploads/2016/11/anonymous-avatar-sm.jpg' alt='Avatar' />
+        <div className='cosmonauts__list-item-icon'>
+            <FontAwesomeIcon icon='user-astronaut' />
+            {/* <img src='http://bestnycacupuncturist.com/wp-content/uploads/2016/11/anonymous-avatar-sm.jpg' alt='Avatar' /> */}
         </div>
         <div>
             <h1>

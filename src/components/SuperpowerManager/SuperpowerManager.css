@@ -19,7 +19,7 @@
 }
 
 .superpower-manager__list li:nth-child(odd){
-    background: #EEEE;
+    background: #f3f3f3;
 }
 
 .superpower-manager__list li span{
