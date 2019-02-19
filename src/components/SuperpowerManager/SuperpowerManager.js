@@ -177,7 +177,8 @@ class SuperpowerManager extends Component {
                 }
             `
         }, (data) => {
-            const superpowers = data.data.superpowers;
+            let superpowers = data.data.superpowers;
+            superpowers = superpowers.sort((superpower1, superpower2) => superpower1.name.localeCompare(superpower2.name))
             this.setState({ superpowers: superpowers, shownSuperpowers: superpowers, searchValue: '' });
         });
     }
