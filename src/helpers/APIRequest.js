@@ -1,6 +1,7 @@
 const APIRequest = (context, query, successHandler) => {
+    console.log(process.env.REACT_APP_BACKEND_SERVER);
     context.beginLoading();
-    fetch('http://localhost:8000/graphql', {
+    fetch(process.env.REACT_APP_BACKEND_SERVER, {
         method: 'POST',
         body: JSON.stringify(query),
         headers: {
