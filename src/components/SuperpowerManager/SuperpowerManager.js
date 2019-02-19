@@ -214,8 +214,11 @@ class SuperpowerManager extends Component {
                     modalSize='big'
                     hasSaveIcon
                     onCancel={this.cancelHandler}
+                    hasAdditionalAction additionalAction="Reset" onAdditionalAction={() => { this.renameSuperpowerForm.reset(); this.setState({ isSuperpowerNameValid: true }) }}
                     confirmText='Save' onConfirm={this.confirmRenameSuperpower}>
-                    <input type='text' defaultValue={this.state.selectedSuperpower.name} className={!this.state.isSuperpowerNameValid ? 'invalid-input' : ''} ref={this.newNameInput} />
+                    <form ref={(el) => this.renameSuperpowerForm = el} onSubmit={null}>
+                        <input type='text' defaultValue={this.state.selectedSuperpower.name} className={!this.state.isSuperpowerNameValid ? 'invalid-input' : ''} ref={this.newNameInput} />
+                    </form>
                 </Modal>
                 )}
             </React.Fragment>
