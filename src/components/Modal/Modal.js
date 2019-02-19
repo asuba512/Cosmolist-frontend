@@ -6,12 +6,12 @@ import Mousetrap from 'mousetrap';
 import './Modal.css';
 
 class Modal extends Component {
-    constructor(props) {
-        super(props);
-        this.modal = React.createRef();
-    }
+
+    modal = null;
+
     componentDidMount() {
         Mousetrap.bind('esc', this.props.onCancel);
+        this.modal = document.querySelector('#modal-body')
         disableBodyScroll(this.modal);
     }
     componentWillUnmount() {
@@ -22,12 +22,12 @@ class Modal extends Component {
         return (
             <div className={this.props.isError && 'error'}>
                 <div className='backdrop' onClick={this.props.onCancel}></div>
-                <div className={'modal ' + this.props.modalSize} ref={this.modal}>
+                <div className={'modal ' + this.props.modalSize}>
                     <div className='modal__header'>
                         {this.props.headerText}
                         <button className='modal__header-close-btn' onClick={this.props.onCancel} ><FontAwesomeIcon icon='times' /></button>
                     </div>
-                    <div className='modal__body'>
+                    <div className='modal__body' id='modal-body'>
                         {this.props.children}
                     </div>
                     <div className='modal__buttons'>
