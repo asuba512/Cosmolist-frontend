@@ -1,7 +1,18 @@
 .superpower-manager__control{
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-direction: column;
     width: 100%;
+}
+
+.superpower-manager__control div{
+    order: 1;
+    margin-top: 1rem;
+}
+
+.superpower-manager__control button{
+    margin-top: 0.3rem;
 }
 
 .superpower-manager__list{
@@ -15,7 +26,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-direction: column;
     padding: 0.5rem 0;
+}
+
+.superpower-manager__list li span,
+.superpower-manager__list li button{
+    margin-bottom: 0.3rem;
 }
 
 .superpower-manager__list li:nth-child(odd){
@@ -25,4 +42,28 @@
 .superpower-manager__list li span{
     padding-left: 0.5rem;
     flex-grow: 2;
+}
+
+@media only screen and (min-width: 768px) {
+     .superpower-manager__control{
+         flex-direction: row;
+     }
+
+     .superpower-manager__control div{
+         order: 0;
+         margin-top: 0;
+     }
+
+     .superpower-manager__control button{
+         margin-top: 0;
+     }
+
+     .superpower-manager__list li{
+         flex-direction: row;
+     }
+
+     .superpower-manager__list li span,
+     .superpower-manager__list li button{
+         margin-bottom: 0;
+     }
 }

@@ -260,11 +260,11 @@ class CosmonautsPage extends Component {
                 {this.state.managingSuperpowers && <SuperpowerManager closeHandler={this.closeManageSuperpowersHandler} />}
 
                 <div className='cosmonauts__control'>
+                    <button className='btn' onClick={this.fetchCosmonauts}><FontAwesomeIcon icon='sync' />Reload</button>
                     <button className='btn' onClick={this.manageSuperpowersHandler}><FontAwesomeIcon icon='cog' />Manage Superpowers</button>
                     <button className='btn' onClick={this.newCosmonautHandler}><FontAwesomeIcon icon='plus' />New Cosmonaut</button>
                     <div className='flex-divider' />
                     <Searchbox placeholder='Search cosmonauts' onSearchHandler={this.filterCosmonauts} value={this.state.searchValue} />
-                    <button className='btn' onClick={this.fetchCosmonauts}><FontAwesomeIcon icon='sync' />Reload</button>
                 </div>
 
                 <CosmonautsList

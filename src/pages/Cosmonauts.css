@@ -4,7 +4,31 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row-reverse;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-end;
+}
+
+.cosmonauts__control button{
+    margin-bottom: 0.3rem;
+}
+
+.cosmonauts__control div{
+    align-self: center;
+    margin-top: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .cosmonauts__control{
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    .cosmonauts__control button{
+        margin-bottom: 0;
+    }
+
+    .cosmonauts__control div{
+        margin-top: 0;
+    }
 }

@@ -8,6 +8,7 @@
 
 .flex-divider{
   flex-grow: 2;
+  display: none;
 }
 
 .btn{
@@ -105,4 +106,10 @@ input.invalid-input {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #666; 
+}
+
+@media only screen and (min-width: 768px) {
+  .flex-divider{
+    display: block;
+  }
 }

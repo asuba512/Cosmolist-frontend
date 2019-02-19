@@ -192,7 +192,7 @@ class SuperpowerManager extends Component {
                     <div className='superpower-manager__control'>
                         <Searchbox placeholder='Search superpowers' onSearchHandler={this.filterSuperpowers} value={this.state.searchValue} />
                         <div className='flex-divider' />
-                        <input type='text' className={!this.state.isNewSuperpowerNameValid ? 'invalid-input' : ''} placeholder='New superpower name' ref={this.newSuperpowerInput}></input>
+                        <input type='text' className={!this.state.isNewSuperpowerNameValid ? 'invalid-input' : ''} placeholder='New superpower name' ref={this.newSuperpowerInput} />
                         <button className='btn' onClick={this.newSuperpowerHandler}><FontAwesomeIcon icon='plus' /> Add superpower</button>
                     </div>
                     <ul className='superpower-manager__list'>
