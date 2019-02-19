@@ -1,5 +1,4 @@
 const APIRequest = (context, query, successHandler) => {
-    console.log(process.env.REACT_APP_BACKEND_SERVER);
     context.beginLoading();
     fetch(process.env.REACT_APP_BACKEND_SERVER, {
         method: 'POST',
