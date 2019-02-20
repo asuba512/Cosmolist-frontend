@@ -197,6 +197,7 @@ class CosmonautsPage extends Component {
                 cosmonaut.superpower = this.getSuperpower(cosmonaut.superpower);
                 return cosmonaut;
             });
+            cosmonauts = cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname));
             this.setState({ cosmonauts: cosmonauts, shownCosmonauts: cosmonauts, searchValue: '' }, this.fetchSuperpowers);
         });
     }
