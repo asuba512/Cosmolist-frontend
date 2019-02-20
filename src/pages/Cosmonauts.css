@@ -20,7 +20,21 @@
     width: 100%;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px){
+    .cosmonauts__control{
+        flex-direction: row-reverse;
+        justify-content: space-around;
+    }
+
+    .cosmonauts__control .cosmonauts__control-searchbox,
+    .cosmonauts__control .cosmonauts__control-superpower{
+        width: 20rem;
+        margin-top: 0;
+    }
+
+}
+
+@media only screen and (min-width: 1150px) {
     .cosmonauts__control{
         flex-direction: row-reverse;
         align-items: center;

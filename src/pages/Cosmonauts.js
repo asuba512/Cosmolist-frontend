@@ -44,7 +44,6 @@ class CosmonautsPage extends Component {
 
     loadData = () => {
         this.fetchCosmonauts();
-        this.fetchSuperpowers();
     }
 
     resetValidation = () => {
@@ -133,7 +132,7 @@ class CosmonautsPage extends Component {
     }
 
     closeManageSuperpowersHandler = () => {
-        this.fetchCosmonauts();
+        this.loadData();
         this.setState({ managingSuperpowers: false });
     }
 
@@ -150,30 +149,31 @@ class CosmonautsPage extends Component {
         else {
             searchValue = this.state.searchValue.toLowerCase().trim();
         }
-        this.setState(prevState => ({ cosmonauts: prevState.cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname)) }));
-        await this.fetchSuperpowers();
-        let filteredCosmonauts = this.state.cosmonauts;
-        if (this.state.filterBySuperpower) {
-            filteredCosmonauts = filteredCosmonauts.filter(cosmonaut => {
-                if (!this.state.filterBySuperpower.value) {
-                    return cosmonaut.superpower.value === null;
-                }
-                return this.state.filterBySuperpower.users.find(user => user._id === cosmonaut._id) ? true : false;
-            })
-        }
-        if (searchValue !== '') {
-            this.setState({
-                shownCosmonauts: filteredCosmonauts.filter(cosmonaut => {
-                    return (
-                        cosmonaut.firstname.toLowerCase().indexOf(searchValue) !== -1 ||
-                        cosmonaut.lastname.toLowerCase().indexOf(searchValue) !== -1 ||
-                        cosmonaut.firstname.toLowerCase().concat(' ' + cosmonaut.lastname.toLowerCase()).indexOf(searchValue) !== -1
-                    )
+        this.setState(prevState => ({ cosmonauts: prevState.cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname)) }), () => {
+            let filteredCosmonauts = this.state.cosmonauts;
+            if (this.state.filterBySuperpower) {
+                filteredCosmonauts = filteredCosmonauts.filter(cosmonaut => {
+                    if (!this.state.filterBySuperpower.value) {
+                        return cosmonaut.superpower.value === null;
+                    }
+                    return this.state.filterBySuperpower.users.find(user => user._id === cosmonaut._id) ? true : false;
                 })
-            });
-        }
-        else
-            this.setState({ shownCosmonauts: filteredCosmonauts });
+            }
+            if (searchValue !== '') {
+                this.setState({
+                    shownCosmonauts: filteredCosmonauts.filter(cosmonaut => {
+                        return (
+                            cosmonaut.firstname.toLowerCase().indexOf(searchValue) !== -1 ||
+                            cosmonaut.lastname.toLowerCase().indexOf(searchValue) !== -1 ||
+                            cosmonaut.firstname.toLowerCase().concat(' ' + cosmonaut.lastname.toLowerCase()).indexOf(searchValue) !== -1
+                        )
+                    })
+                });
+            }
+            else
+                this.setState({ shownCosmonauts: filteredCosmonauts });
+        });
+
     }
 
     fetchCosmonauts = () => {
@@ -197,13 +197,12 @@ class CosmonautsPage extends Component {
                 cosmonaut.superpower = this.getSuperpower(cosmonaut.superpower);
                 return cosmonaut;
             });
-            cosmonauts = cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname))
-            this.setState({ cosmonauts: cosmonauts, shownCosmonauts: cosmonauts, searchValue: '' });
+            this.setState({ cosmonauts: cosmonauts, shownCosmonauts: cosmonauts, searchValue: '' }, this.fetchSuperpowers);
         });
     }
 
     updateCosmonauts = (updatedCosmonauts) => {
-        this.setState({ cosmonauts: updatedCosmonauts }, this.filterCosmonauts);
+        this.setState({ cosmonauts: updatedCosmonauts }, this.fetchSuperpowers);
     }
 
     addNewSuperpower = (name) => {
@@ -245,7 +244,10 @@ class CosmonautsPage extends Component {
             });
             superpowers = superpowers.sort((superpower1, superpower2) => superpower1.label.localeCompare(superpower2.label))
             superpowers.unshift(this.getSuperpower(null));
-            this.setState({ superpowers: superpowers });
+            let filteredSuperpower = null;
+            if (this.state.filterBySuperpower)
+                filteredSuperpower = superpowers.find(superpower => superpower.value === this.state.filterBySuperpower.value);
+            this.setState({ superpowers: superpowers, filterBySuperpower: filteredSuperpower }, this.filterCosmonauts);
         });
     }
 
