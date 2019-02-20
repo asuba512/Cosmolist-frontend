@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch, faSync, faPlus, faCog, faUserSlash, faUserEdit, faSave, faUserAstronaut, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons'
@@ -62,8 +62,7 @@ class App extends Component {
             )}
             <main className='main'>
               <Switch>
-                <Redirect from="/" to="/cosmonauts" exact />
-                <Route path="/cosmonauts" component={CosmonautsPage} />
+                <Route path="/" component={CosmonautsPage} />
               </Switch>
             </main>
           </Context.Provider>
