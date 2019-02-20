@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CreatableSelect from 'react-select/lib/Creatable';
 import Select from 'react-select'
 
 import Context from '../Context';
@@ -206,26 +205,6 @@ class CosmonautsPage extends Component {
         this.setState({ cosmonauts: updatedCosmonauts }, this.fetchSuperpowers);
     }
 
-    addNewSuperpower = (name) => {
-        APIRequest(this.context, {
-            query: `
-                mutation {
-                    createSuperpower(inputSuperpower: {
-                        name: "${name}"
-                    }) {
-                        _id
-                        name
-                    }
-                }
-            `
-        }, (data) => {
-            let superpower = this.getSuperpower(data.data.createSuperpower);
-            this.setState(prevState => {
-                return { superpowers: [...prevState.superpowers, superpower], selectedSuperpower: superpower }
-            })
-        });
-    }
-
     fetchSuperpowers = () => {
         APIRequest(this.context, {
             query: `
@@ -272,10 +251,9 @@ class CosmonautsPage extends Component {
                             </div>
                             <div className='form-control'>
                                 <label htmlFor='superpower'>Superpower</label>
-                                <CreatableSelect
+                                <Select
                                     value={this.state.selectedSuperpower}
                                     onChange={superpower => { this.setState({ selectedSuperpower: superpower }) }}
-                                    onCreateOption={this.addNewSuperpower}
                                     isDisabled={this.context.loading}
                                     options={this.state.superpowers}
                                     isSearchable

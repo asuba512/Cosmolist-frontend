@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CreatableSelect from 'react-select/lib/Creatable';
+import Select from 'react-select'
 
 import Context from '../../Context';
 import CosmonautsListItem from './CosmonautsListItem';
@@ -152,10 +152,9 @@ class CosmonautsList extends Component {
                             </div>
                             <div className='form-control'>
                                 <label htmlFor='superpower'>Superpower</label>
-                                <CreatableSelect
+                                <Select
                                     value={this.state.selectedSuperpower}
                                     onChange={superpower => { this.setState({ selectedSuperpower: superpower }) }}
-                                    onCreateOption={this.addNewSuperpower}
                                     isDisabled={this.context.loading}
                                     options={this.props.superpowers}
                                     className='form-control-select'
