@@ -9,6 +9,9 @@
     height: 3.5rem;
     padding: 0 2rem;
     background-color: #353535;
+    background-image: url('../../assets/space.jpg');
+    background-size: cover;
+    background-position-y: 100%;
     color: white;
 }
 
