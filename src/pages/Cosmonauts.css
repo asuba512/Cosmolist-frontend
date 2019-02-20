@@ -33,6 +33,6 @@
     .cosmonauts__control .cosmonauts__control-searchbox,
     .cosmonauts__control .cosmonauts__control-superpower{
         margin-top: 0;
-        width: 20rem;
+        max-width: 20rem;
     }
 }

@@ -172,7 +172,7 @@ class CosmonautsList extends Component {
                 )}
                 <ul className='cosmonauts__list' >
                     {
-                        this.props.cosmonauts.map(cosmonaut => (
+                        this.props.shownCosmonauts.map(cosmonaut => (
                             <CosmonautsListItem
                                 onEditCosmonaut={this.editCosmonautHandler} onRemoveCosmonaut={this.removeCosmonautHandler}
                                 key={cosmonaut._id} cosmonaut={cosmonaut} />

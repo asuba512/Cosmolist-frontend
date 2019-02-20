@@ -39,6 +39,10 @@ class CosmonautsPage extends Component {
     }
 
     componentDidMount = () => {
+        this.loadData();
+    }
+
+    loadData = () => {
         this.fetchCosmonauts();
         this.fetchSuperpowers();
     }
@@ -137,7 +141,7 @@ class CosmonautsPage extends Component {
         this.setState({ filterBySuperpower: action === 'clear' ? null : superpower }, this.filterCosmonauts);
     }
 
-    filterCosmonauts = (event) => {
+    filterCosmonauts = async (event) => {
         let searchValue;
         if (event) {
             this.setState({ searchValue: event.currentTarget.value });
@@ -147,9 +151,13 @@ class CosmonautsPage extends Component {
             searchValue = this.state.searchValue.toLowerCase().trim();
         }
         this.setState(prevState => ({ cosmonauts: prevState.cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname)) }));
+        await this.fetchSuperpowers();
         let filteredCosmonauts = this.state.cosmonauts;
         if (this.state.filterBySuperpower) {
             filteredCosmonauts = filteredCosmonauts.filter(cosmonaut => {
+                if (!this.state.filterBySuperpower.value) {
+                    return cosmonaut.superpower.value === null;
+                }
                 return this.state.filterBySuperpower.users.find(user => user._id === cosmonaut._id) ? true : false;
             })
         }
@@ -195,8 +203,7 @@ class CosmonautsPage extends Component {
     }
 
     updateCosmonauts = (updatedCosmonauts) => {
-        this.setState({ cosmonauts: updatedCosmonauts });
-        this.filterCosmonauts();
+        this.setState({ cosmonauts: updatedCosmonauts }, this.filterCosmonauts);
     }
 
     addNewSuperpower = (name) => {
@@ -279,7 +286,7 @@ class CosmonautsPage extends Component {
                 {this.state.managingSuperpowers && <SuperpowerManager closeHandler={this.closeManageSuperpowersHandler} />}
 
                 <div className='cosmonauts__control'>
-                    <button className='btn' onClick={this.fetchCosmonauts}><FontAwesomeIcon icon='sync' />Reload</button>
+                    <button className='btn' onClick={this.loadData}><FontAwesomeIcon icon='sync' />Reload</button>
                     <button className='btn' onClick={this.manageSuperpowersHandler}><FontAwesomeIcon icon='cog' />Manage Superpowers</button>
                     <button className='btn' onClick={this.newCosmonautHandler}><FontAwesomeIcon icon='plus' />New Cosmonaut</button>
                     <div className='flex-divider' />
@@ -301,7 +308,8 @@ class CosmonautsPage extends Component {
                 </div>
 
                 <CosmonautsList
-                    cosmonauts={this.state.shownCosmonauts}
+                    cosmonauts={this.state.cosmonauts}
+                    shownCosmonauts={this.state.shownCosmonauts}
                     superpowers={this.state.superpowers}
                     onEditCosmonaut={this.editCosmonautHandler}
                     onRemoveCosmonaut={this.removeCosmonautConfirmationHandler}

@@ -11,6 +11,7 @@
     border: none;
     font-size: 1rem;
     height: 1.5rem;
+    width: 100%;
     padding: 0.375rem 0.5rem;
 }
 
@@ -18,4 +19,8 @@
     padding: 0.3rem;
     padding-right: 0;
     color: rgba(0,0,0, 0.5);
+}
+
+.searchbox__clear:hover{
+    color: black;
 }
