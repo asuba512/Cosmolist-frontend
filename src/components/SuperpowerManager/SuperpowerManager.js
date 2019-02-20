@@ -153,6 +153,9 @@ class SuperpowerManager extends Component {
         else {
             searchValue = this.state.searchValue.toLowerCase().trim();
         }
+        this.setState(prevState => {
+            return { superpowers: prevState.superpowers.sort((superpower1, superpower2) => superpower1.name.localeCompare(superpower2.name)) }
+        })
         if (searchValue !== '') {
             this.setState({
                 shownSuperpowers: this.state.superpowers.filter(superpower => {

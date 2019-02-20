@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CreatableSelect from 'react-select/lib/Creatable';
+import Select from 'react-select'
 
 import Context from '../Context';
 import APIRequest from '../helpers/APIRequest';
@@ -18,6 +19,7 @@ class CosmonautsPage extends Component {
         shownCosmonauts: [],
         superpowers: [],
         selectedSuperpower: this.getSuperpower(null),
+        filterBySuperpower: null,
         creatingCosmonaut: false,
         managingSuperpowers: false,
         searchValue: '',
@@ -38,6 +40,7 @@ class CosmonautsPage extends Component {
 
     componentDidMount = () => {
         this.fetchCosmonauts();
+        this.fetchSuperpowers();
     }
 
     resetValidation = () => {
@@ -64,9 +67,9 @@ class CosmonautsPage extends Component {
 
     getSuperpower(superpower) {
         if (superpower)
-            return { value: superpower._id, label: superpower.name };
+            return { value: superpower._id, label: superpower.name, users: superpower.users };
         else
-            return { value: null, label: "None" };
+            return { value: null, label: 'No superpower', users: [] };
     }
 
     cancelHandler = () => {
@@ -130,6 +133,10 @@ class CosmonautsPage extends Component {
         this.setState({ managingSuperpowers: false });
     }
 
+    filterBySuperpowerHandler = (superpower, action) => {
+        this.setState({ filterBySuperpower: action === 'clear' ? null : superpower }, this.filterCosmonauts);
+    }
+
     filterCosmonauts = (event) => {
         let searchValue;
         if (event) {
@@ -139,9 +146,16 @@ class CosmonautsPage extends Component {
         else {
             searchValue = this.state.searchValue.toLowerCase().trim();
         }
+        this.setState(prevState => ({ cosmonauts: prevState.cosmonauts.sort((cosmonaut1, cosmonaut2) => cosmonaut1.lastname.localeCompare(cosmonaut2.lastname)) }));
+        let filteredCosmonauts = this.state.cosmonauts;
+        if (this.state.filterBySuperpower) {
+            filteredCosmonauts = filteredCosmonauts.filter(cosmonaut => {
+                return this.state.filterBySuperpower.users.find(user => user._id === cosmonaut._id) ? true : false;
+            })
+        }
         if (searchValue !== '') {
             this.setState({
-                shownCosmonauts: this.state.cosmonauts.filter(cosmonaut => {
+                shownCosmonauts: filteredCosmonauts.filter(cosmonaut => {
                     return (
                         cosmonaut.firstname.toLowerCase().indexOf(searchValue) !== -1 ||
                         cosmonaut.lastname.toLowerCase().indexOf(searchValue) !== -1 ||
@@ -151,7 +165,7 @@ class CosmonautsPage extends Component {
             });
         }
         else
-            this.setState({ shownCosmonauts: this.state.cosmonauts });
+            this.setState({ shownCosmonauts: filteredCosmonauts });
     }
 
     fetchCosmonauts = () => {
@@ -212,6 +226,9 @@ class CosmonautsPage extends Component {
                     superpowers {
                         _id
                         name
+                        users {
+                            _id
+                        }
                     }
                 }
             `
@@ -266,7 +283,21 @@ class CosmonautsPage extends Component {
                     <button className='btn' onClick={this.manageSuperpowersHandler}><FontAwesomeIcon icon='cog' />Manage Superpowers</button>
                     <button className='btn' onClick={this.newCosmonautHandler}><FontAwesomeIcon icon='plus' />New Cosmonaut</button>
                     <div className='flex-divider' />
-                    <Searchbox placeholder='Search cosmonauts' onSearchHandler={this.filterCosmonauts} value={this.state.searchValue} />
+                    <div className='cosmonauts__control-superpower'>
+                        <Select
+                            value={this.state.filterBySuperpower}
+                            onChange={this.filterBySuperpowerHandler}
+                            isClearable
+                            clear
+                            isDisabled={this.context.loading}
+                            options={this.state.superpowers}
+                            placeholder='Filter by superpowers'
+                            isSearchable
+                            className='form-control-select'
+                            classNamePrefix='form-control-select'
+                        />
+                    </div>
+                    <Searchbox placeholder='Search cosmonauts' onSearchHandler={this.filterCosmonauts} value={this.state.searchValue} className='cosmonauts__control-searchbox' />
                 </div>
 
                 <CosmonautsList

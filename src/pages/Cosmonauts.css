@@ -13,9 +13,11 @@
     margin-bottom: 0.3rem;
 }
 
-.cosmonauts__control div{
+.cosmonauts__control .cosmonauts__control-searchbox,
+.cosmonauts__control .cosmonauts__control-superpower{
     align-self: center;
     margin-top: 1rem;
+    width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -28,7 +30,9 @@
         margin-bottom: 0;
     }
 
-    .cosmonauts__control div{
+    .cosmonauts__control .cosmonauts__control-searchbox,
+    .cosmonauts__control .cosmonauts__control-superpower{
         margin-top: 0;
+        width: 20rem;
     }
 }
